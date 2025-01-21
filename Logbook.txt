@@ -1,0 +1,51 @@
+23-12-2024 Started by looking at accessing the text-bison@001 through gcloud using the json file key you can create in the 
+    vetex ai tab in gcloud but did not have success. 
+    Kept getting the folling error: 
+    FailedPrecondition: 400 Project `426350680448` is not allowed to use Publisher Model `projects/gogle-llm-api-testing/
+    locations/us-central1/publishers/google/models/text-bison@001`
+
+26-12-2024 Pivited to using Gemini, more advanced, easier implementation, still through gcloud.
+    Got it working and started playing around with it, looking at implenting the following: 
+    Exponential backoff function as there is a request limit (the limit is not well documented).
+    Chat history.
+
+    Planning on using tkinter or customtkinter to just create a basic interface where you can upload a handful of pdf's, 
+    have the text extracted, analysed by Gemini, and then given a 1 to 5 star rating (and maybe later a breakdown of the ratings)
+
+    Got about as far as having an upload button that reads in the pdf as text. Will work on storing the text and calling 
+    gemini to grade it next time.
+
+27-12-2024 Thought that the authorisation func wasn't the point of the exersize so I'll try get that working another time.
+    Got the upload and update table functions working,
+    Started working on the update grades functions.
+
+
+28-12-2024
+    Refined the grading workflow by adding a retry mechanism with basic exponential backoff for when requests to Gemini fail due to 
+    quota limits. Implemented a countdown dialog using customtkinter to inform users during backoff delays.
+    Also, added a function to clear all uploaded data, resetting the table and ensuring the application can start fresh without restarting. 
+    Integrated error handling to manage cases where Gemini doesn't return a valid grade or when requests exceed the quota.
+
+    Next steps: polish the grading process, handle edge cases, and refine the UI for better usability.
+
+29-12-2024
+    Added a global authentication button to initialise GCloud and set up Vertex AI. Implemented a multithreaded approach to authentication with 
+    a cancelable progress dialog, although some functionality remains incomplete.
+    Refined the grading logic further by validating responses from Gemini and ensuring that only valid grades (1–5) are stored. Enhanced 
+    the UI to show a preview of the extracted text from uploaded PDFs, giving users quick feedback on the upload process.
+    Starting to feel like the core functionality is in place. Next step is to improve error messages, clean up code, and add detailed instructions for users.
+
+30-12-2024
+    Implemented additional buttons for "Authenticate GCloud" and "Initialise Vertex AI" to streamline the setup process. Worked on 
+    refining the interaction between the UI and backend, ensuring smoother updates to the table display and reducing potential lag during grading.
+    Also added better error handling for issues like file re-uploads and text extraction failures, improving the overall user experience.
+    Next steps include testing with more PDFs, adding detailed error logging, and preparing the program for potential expansion (e.g., chat history or rating breakdown).
+
+2-1-2025
+    Conducted final testing with multiple PDFs to ensure the application works reliably. Fixed a few edge cases, such as handling PDFs 
+    with no text or unsupported formats. Cleaned up the code and added comments to make it easier to maintain or expand in the future.
+    The program is now functional, allowing users to upload PDFs, extract text, send it to Gemini for grading, and view the results in a 
+    clear, easy-to-use interface. Future iterations could include more detailed grading insights or the ability to upload larger batches of files.
+
+
+    
